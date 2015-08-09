@@ -1,0 +1,508 @@
+@chart1: #6e7b8b;
+@chart2: #69bfba;
+@chart3: #a281cb;
+@chart4: #529669;
+@chart5: #98bd3e;
+@chart6: #c462aa;
+@chart7: #fbd257;
+@chart8: #6290bf;
+
+chart {
+  width: 100%;
+  font-size: 12px;
+  display: block;
+  margin: 0 auto;
+  padding: 0 15px;
+  .chart-header {
+    height: 15px;
+    margin-bottom: 30px;
+    h1 {
+      font-size: 18px;
+      font-weight: 200;
+      color: #565656;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      float: left;
+    }
+    .chart-nav {
+      padding: 0 0 0 1.8em;
+      display: inline-block;
+      float: right;
+      .item {
+        color: #808080;
+        display: inline-block;
+        margin: 0 0 0 2.4em;
+        text-transform: uppercase;
+        cursor: pointer;
+        &.selected,
+        &:hover {
+          color: #555555;
+          font-weight: 900;
+          border-bottom: 4px #ae132a solid;
+          padding-bottom: 1px;
+        }
+      }
+    }
+  }
+  .chart-container {
+    position: relative;
+    .scale {
+      > div {
+        display: inline-block;
+      }
+      .back, .forward {
+        height: 40px;
+        width: 40px;
+        padding: 12px 15px;
+        margin-top: -8px;
+        cursor: pointer;
+      }
+      .back {
+        margin-left: -14px;
+        img {
+            transform: rotate(180deg);
+        }
+      }
+      .forward {
+        float: right;
+        margin-right: -16px;
+      }
+      &.scale-top {
+        width: 100%;
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+      }
+      &.scale-bottom {
+        position: absolute;
+        width: 100%;
+        bottom: 3px;
+      }
+    }
+    .main-chart {
+      position: relative;
+
+      .date-axis {
+        height: 50px;
+        width: 100%;
+        g.x.axis {
+          g.tick:first-child,
+          g.tick:last-of-type {
+            display: none;
+          }
+          .tick text tspan {
+            fill: #294f73;
+            font: bold 12px Helvetica Neue;
+          }
+          .tick line {
+            stroke: #999;
+          }
+          path.domain {
+            stroke: #999;
+            display: block;
+            stroke-width: 1px;
+            shape-rendering: auto;
+            fill: none;
+          }
+        }
+      }
+      .switches {
+        height: 15px;
+        margin: 20px 0 10px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+        box-sizing: content-box;
+        > div span {
+          text-transform: uppercase;
+          font-size: 11px;
+          opacity: 0.5;
+        }
+        .control-toggle {
+          width: 25px;
+          height: 14px;
+          margin-right: 5px;
+          color: #ababab;
+          display: inline-block;
+          border-radius: 28px;
+          border: 1px solid;
+          background: #ccc; // disabled fill color
+          vertical-align: middle;
+          cursor: pointer;
+          transition: background 0.4s, color 0.4s;
+          text-align:center;
+          &.enabled:after,
+          &.enabled_true:after {
+              margin-left: 12px;
+          }
+          &:after {
+            height: 9px;
+            width: 9px;
+            border: none;
+            display: block;
+            margin: -1px;
+            margin-top: 1px;
+            margin-left: 1px;
+            background: #ababab;
+            vertical-align: top;
+            content: '';
+            border-radius: 100%;
+            transition: margin-left 0.15s;
+          }
+        }
+        &.switches-0 {
+          .left-switch {
+            &.enabled,
+            &.enabled_true {
+              .control-toggle{
+                color: @chart1;
+                background-color: lighten(@chart1, 45%);
+                &:after {
+                  background: @chart1;
+                }
+              }
+            }
+          }
+          .right-switch {
+             &.enabled,
+             &.enabled_true {
+              .control-toggle {
+                color: @chart2;
+                background-color: lighten(@chart2, 35%);
+                &:after {
+                  background: @chart2;
+                }
+              }
+            }
+          }
+        }
+        &.switches-1 {
+          .left-switch {
+            &.enabled,
+            &.enabled_true {
+              .control-toggle{
+                color: @chart3;
+                background-color: lighten(@chart3, 30%);
+                &:after {
+                  background: @chart3;
+                }
+              }
+            }
+          }
+          .right-switch {
+            &.enabled,
+            &.enabled_true {
+              .control-toggle {
+                color: @chart4;
+                background-color: lighten(@chart4, 45%);
+                &:after {
+                  background: @chart4;
+                }
+              }
+            }
+          }
+        }
+        &.switches-2 {
+          .left-switch {
+            &.enabled,
+            &.enabled_true {
+              .control-toggle {
+                color: @chart5;
+                background-color: lighten(@chart5, 45%);
+                &:after {
+                  background: @chart5;
+                }
+              }
+            }
+          }
+          .right-switch {
+             &.enabled,
+             &.enabled_true {
+              .control-toggle {
+                color: @chart6;
+                background-color: lighten(@chart6, 40%);
+                &:after {
+                  background: @chart6;
+                }
+              }
+            }
+          }
+        }
+        &.switches-3 {
+          .left-switch {
+            &.enabled,
+            &.enabled_true {
+              .control-toggle{
+                color: @chart7;
+                background-color: lighten(@chart7, 30%);
+                &:after {
+                    background: @chart7;
+                }
+              }
+            }
+          }
+          .right-switch {
+            &.enabled,
+            &.enabled_true {
+              .control-toggle {
+                color: @chart8;
+                background-color: lighten(@chart8, 40%);
+                &:after {
+                  background: @chart8;
+                }
+              }
+            }
+          }
+        }
+        .left-switch,
+        .right-switch {
+          &.enabled,
+          &.enabled_true {
+            .control-toggle:after {
+              margin-left: 12px;
+            }
+          }
+          &.enabled span {
+            opacity: 1;
+          }
+        }
+        .left-switch {
+            float: left;
+        }
+        .right-switch {
+            float: right;
+            margin-left: 25px;
+        }
+      }
+      .chart-svg {
+        height: 0;
+        width: 100%;
+        &.enabled {
+          height: 130px;
+        }
+        path.line,
+        circle,
+        g {
+          pointer-events: none;
+        }
+        g.x.axis {
+          path.domain {
+            stroke: #999;
+            display: block;
+            stroke-width: 1px;
+            shape-rendering: auto;
+            fill: none;
+          }
+          .tick line {
+            stroke: #999;
+          }
+        } 
+        .y-axis-guide {
+          stroke-width: 1px;
+          stroke-dasharray: 3,4;
+          stroke: #ccc;
+        }
+        .y.axis text {
+          font-size: 11px;
+          font-weight: 900;
+          text-shadow: 1px 0 1px #fff, 0 1px 1px #fff, -1px 0 1px #fff, 0 -1px 1px #fff, 1px 0 1px #fff, 0 1px 1px #fff, -1px 0 1px #fff, 0 -1px 1px #fff;
+          letter-spacing: 0.5px;
+          fill: #666;
+        }
+        path.line {
+          stroke-width: 2px;
+          pointer-events: none;
+          fill: none;
+        }
+
+        .chart-0 {
+          .graph-0 {
+            path.line {
+              stroke: @chart1;
+            }
+            circle {
+              fill:@chart1;
+            }
+          }
+          .graph-1 {
+            path.line {
+              stroke: @chart2;
+            }
+            circle {
+              fill:@chart2;
+            }
+          }
+        }
+        .chart-1 {
+          .graph-0 {
+            path.line {
+              stroke: @chart3;
+            }
+            circle {
+              fill:@chart3;
+            }
+          }
+          .graph-1 {
+            path.line {
+              stroke: @chart4;
+            }
+            circle {
+              fill:@chart4;
+            }
+          }
+        }
+        .chart-2 {
+          .graph-0 {
+            path.line {
+              stroke: @chart5;
+            }
+            circle {
+              fill:@chart5;
+            }
+          }
+          .graph-1 {
+            path.line {
+              stroke: @chart6;
+            }
+            circle {
+              fill:@chart6;
+            }
+          }
+        }
+        .chart-3 {
+          .graph-0 {
+            path.line {
+              stroke: @chart7;
+            }
+            circle {
+                fill:@chart7;
+            }
+          }
+          .graph-1 {
+            path.line {
+              stroke: @chart8;
+            }
+            circle {
+              fill:@chart8;
+            }
+          }
+        }
+      }
+      .no-data {
+        margin: 15px 0 30px;
+        text-align: center;
+        &.hidden {
+          display: none;
+        }
+      }
+      .tooltips {
+        position: absolute;
+        top: 75px;
+        width: 205px;
+        height: ~'calc(100% - 119px)';
+        pointer-events: none;
+        z-index: 9999;
+        border-left: 1px #ccc solid;
+        &.position {
+          border-left: none;
+          border-right: 1px #ccc solid;
+          .tip {
+            right: 15px;
+            left: auto;
+          }
+        }
+        .date-tip,
+        .tip {
+          border: 1px solid #ababab;
+          background-color: rgba(255, 255, 255, 0.8);
+          position: absolute;
+          border-radius: 5px;
+          font-size: 14px;
+        }
+        .date-tip {
+          top: -20px;
+          padding: 6px 10px;
+          left: -76px;
+          width: 170px;
+          text-align: center;
+          color: #888;
+          &.position {
+            left: 129px;
+          }
+          .triangle {
+            border-left: 1px solid #ababab;
+            border-bottom: 1px solid #ababab;
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            -webkit-transform: rotate(-45deg);
+            background: white;
+            pointer-events: none;
+            bottom: -4px;
+            left: 72px;
+          }
+        }
+        .tip {
+          padding: 15px;
+          left: 15px;
+          > div {
+            margin-bottom: 10px;
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+          .label {
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            &:empty {
+              display: none;
+            }
+          }
+          &.tip-chart-0 {
+            .label-container-0 .label {
+              color:@chart1;
+            }
+            .label-container-1 .label {
+              color:@chart2;
+            }
+          }
+          &.tip-chart-1 {
+            .label-container-0 .label {
+              color:@chart3;
+            }
+            .label-container-1 .label {
+              color:@chart4;
+            }
+          }
+          &.tip-chart-2 {
+            .label-container-0 .label {
+              color:@chart5;
+            }
+            .label-container-1 .label {
+              color:@chart6;
+            }
+          }
+          &.tip-chart-3 {
+            .label-container-0 .label {
+              color:@chart7;
+            }
+            .label-container-1 .label {
+              color:@chart8;
+            }
+          }
+          span {
+            display: block;
+            height: 15px;
+            &.data {
+              color: #666;
+            }
+            &:empty {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
