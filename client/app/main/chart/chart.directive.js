@@ -7,13 +7,14 @@ angular.module('chartsApp')
       restrict: 'EA',
       controllerAs: 'dir',
       link: function (scope, element, attrs) {
-        var $scope = scope;
+        var $scope = scope,
+            $d3 = d3;
 
         $scope.chart = {
-          "graphData": null,
-          "tooltip": {'labelOne': null, 'labelTwo': null, 'labelThree': null, 'labelFour': null, 'labelFive': null, 'labelSix': null, 'labelSeven': null, 'labelEight': null},
-          "tooltipsActive": false,
-          "hoverActive": false
+          'graphData': null,
+          'tooltip': {'labelOne': null, 'labelTwo': null, 'labelThree': null, 'labelFour': null, 'labelFive': null, 'labelSix': null, 'labelSeven': null, 'labelEight': null},
+          'tooltipsActive': false,
+          'hoverActive': false
         };
 
         $scope.$watch('data', function(response) {
@@ -67,21 +68,21 @@ angular.module('chartsApp')
           };
 
           // prepare X axis and tick marks
-          var x = d3.time.scale().range([0, width]).domain([values[0], values[length]]);
-          var xTop = d3.svg.axis().scale(x).orient('top').tickFormat(angularDateFormat).tickValues(values);
-          var xBottom = d3.svg.axis().scale(x).orient('bottom').tickFormat(angularDateFormat).tickValues(values);
-          var xInner = d3.svg.axis().scale(x).orient('top').tickFormat('').tickValues(values);
-          d3.select('g.x.axis-top').attr('transform', "translate(0,50)").attr('height', "50").call(xTop).selectAll(".tick text").call(wrap, 70, -30);
-          d3.select('g.x.axis-bottom').call(xBottom).selectAll(".tick text").call(wrap, 70, 25);
-          d3.selectAll('.x-inner').call(xInner);
+          var x = $d3.time.scale().range([0, width]).domain([values[0], values[length]]);
+          var xTop = $d3.svg.axis().scale(x).orient('top').tickFormat(angularDateFormat).tickValues(values);
+          var xBottom = $d3.svg.axis().scale(x).orient('bottom').tickFormat(angularDateFormat).tickValues(values);
+          var xInner = $d3.svg.axis().scale(x).orient('top').tickFormat('').tickValues(values);
+          $d3.select('g.x.axis-top').attr('transform', 'translate(0,50)').attr('height', '50').call(xTop).selectAll('.tick text').call(wrap, 70, -30);
+          $d3.select('g.x.axis-bottom').call(xBottom).selectAll('.tick text').call(wrap, 70, 25);
+          $d3.selectAll('.x-inner').call(xInner);
 
           // prepare Y axis and tick marks
-          var y = d3.scale.linear().range([105, 15]);
-          var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("right").innerTickSize(0).outerTickSize(0);
-          var yAxisRight = d3.svg.axis().scale(y).ticks(4).orient("left").innerTickSize(0).outerTickSize(0);
+          var y = $d3.scale.linear().range([105, 15]);
+          var yAxisLeft = $d3.svg.axis().scale(y).ticks(4).orient('right').innerTickSize(0).outerTickSize(0);
+          var yAxisRight = $d3.svg.axis().scale(y).ticks(4).orient('left').innerTickSize(0).outerTickSize(0);
 
           //create svg line
-          var line = d3.svg.line()
+          var line = $d3.svg.line()
                 .x(function(d) {
                   return x(d.date);
                 })
@@ -91,10 +92,10 @@ angular.module('chartsApp')
 
           if ($scope.chart.graphData.length) {
             $scope.chart.varData = [];
-            d3.selectAll('.y-axis-guide').attr('x2', width - 50);
+            $d3.selectAll('.y-axis-guide').attr('x2', width - 50);
             for (var i = 0; i < $scope.chart.graphData.length; i++) {
               var top = margin.top + (i*180);
-              var chart = d3.select('.chart-' + i);
+              var chart = $d3.select('.chart-' + i);
 
               for (var j = 0; j < $scope.chart.graphData[i].length; j++) {
                 var graph = chart.select('g.graph-' + j);
@@ -134,9 +135,9 @@ angular.module('chartsApp')
 
                   //   axisArray.sort();
 
-                  //   var extent = d3.extent(axisArray, function(d) {return d});
+                  //   var extent = $d3.extent(axisArray, function(d) {return d});
                   // } else {
-                    var extent = d3.extent(data, function(d) {return Number(d.value);});
+                    var extent = $d3.extent(data, function(d) {return Number(d.value);});
                   // }
 
                   var diff = (Number(extent[1]) - Number(extent[0])) / 3,
@@ -147,29 +148,29 @@ angular.module('chartsApp')
 
                   if (j === 0) {
                     yAxisLeft.tickFormat(function(d) {return $filter('number')(d);}).tickValues(domain);
-                    chart.select('.axisLeft').call(yAxisLeft).attr('transform',  "translate(5 ,0)");
+                    chart.select('.axisLeft').call(yAxisLeft).attr('transform',  'translate(5 ,0)');
                   } else if (j === 1 || j === 2) {
                     yAxisRight.tickFormat(function(d) {return $filter('number')(d); }).tickValues(domain);
-                    chart.select('.axisRight').call(yAxisRight).attr('transform', "translate(" + (width - 5) + ",0)");
+                    chart.select('.axisRight').call(yAxisRight).attr('transform', 'translate(' + (width - 5) + ',0)');
                   }
 
-                  graph.select('.line').attr("d", line(data));
+                  graph.select('.line').attr('d', line(data));
 
                   var points = graph.select('.points');
                   points.selectAll('circle').remove();
-                  points.selectAll(".dot")
+                  points.selectAll('.dot')
                     .data(data)
-                    .enter().append("circle")
-                    .attr("r", 4)
+                    .enter().append('circle')
+                    .attr('r', 4)
                     .style('display','none')
-                    .attr("cx", function(d) { return roundNum(x(d.date)); })
-                    .attr("cy", function(d) { return roundNum(y(d.value)); });
+                    .attr('cx', function(d) { return roundNum(x(d.date)); })
+                    .attr('cy', function(d) { return roundNum(y(d.value)); });
 
                   var cNode = chart.node();
                   if (cNode && cNode.parentNode) {
-                    d3.select(chart.node().parentNode)
-                      .on("mouseout", mouseout)
-                      .on("mousemove", function() {
+                    $d3.select(chart.node().parentNode)
+                      .on('mouseout', mouseout)
+                      .on('mousemove', function() {
                         mousemove(this);
                       });
                   }
@@ -181,9 +182,9 @@ angular.module('chartsApp')
               }
             }
           }
-          var circles = d3.select('.main-chart').selectAll('circle');
+          var circles = $d3.select('.main-chart').selectAll('circle');
           if (circles.length) {
-            $scope.chart.circleData = d3.select('.main-chart').selectAll('circle').data();
+            $scope.chart.circleData = $d3.select('.main-chart').selectAll('circle').data();
           }
         }
 
@@ -193,11 +194,11 @@ angular.module('chartsApp')
         //function for hovering over graphs
         function mousemove(self) {
           clearToolTips();
-          var mouseX = d3.mouse(self)[0],
+          var mouseX = $d3.mouse(self)[0],
               width = $('chart').width(),
               values = $scope.chart.scale.values,
-              x = d3.time.scale().range([0, width]).domain([values[0], _.last(values)]),
-              bisectDate = d3.bisector(function(d) { return d.date; }).left,
+              x = $d3.time.scale().range([0, width]).domain([values[0], _.last(values)]),
+              bisectDate = $d3.bisector(function(d) { return d.date; }).left,
               x0 = x.invert(mouseX),
               data = $scope.chart.varData,
               i = [],
@@ -233,7 +234,7 @@ angular.module('chartsApp')
           if (arrHasObjects(d0) && arrHasObjects(d1)) {
             // reset all circles to hidden
             var circleData = [];
-            var charts = d3.select('.main-chart');
+            var charts = $d3.select('.main-chart');
             charts.selectAll('circle').style('display','none');
 
             // loop through all graphs
@@ -280,14 +281,14 @@ angular.module('chartsApp')
               }
             }
 
-            var labelOne = circleData.filter(function (obj) {return obj[0].label === "Label 1";})[0],
-                labelTwo = circleData.filter(function (obj) {return obj[0].label === "Label 2";})[0],
-                labelThree = circleData.filter(function (obj) {return obj[0].label === "Label 3";})[0],
-                labelFour = circleData.filter(function (obj) {return obj[0].label === "Label 4";})[0],
-                labelFive = circleData.filter(function (obj) {return obj[0].label === "Label 5";})[0],
-                labelSix = circleData.filter(function (obj) {return obj[0].label === "Label 6";})[0],
-                labelSeven = circleData.filter(function (obj) {return obj[0].label === "Label 7";})[0],
-                labelEight = circleData.filter(function (obj) {return obj[0].label === "Label 8";})[0];
+            var labelOne = circleData.filter(function (obj) {return obj[0].label === 'Label 1';})[0],
+                labelTwo = circleData.filter(function (obj) {return obj[0].label === 'Label 2';})[0],
+                labelThree = circleData.filter(function (obj) {return obj[0].label === 'Label 3';})[0],
+                labelFour = circleData.filter(function (obj) {return obj[0].label === 'Label 4';})[0],
+                labelFive = circleData.filter(function (obj) {return obj[0].label === 'Label 5';})[0],
+                labelSix = circleData.filter(function (obj) {return obj[0].label === 'Label 6';})[0],
+                labelSeven = circleData.filter(function (obj) {return obj[0].label === 'Label 7';})[0],
+                labelEight = circleData.filter(function (obj) {return obj[0].label === 'Label 8';})[0];
 
             $scope.$apply(function () {
               $scope.chart.tooltipsActive = true;
@@ -305,7 +306,7 @@ angular.module('chartsApp')
             $scope.$apply(function () {
               $scope.chart.tooltipsActive = false;
             });
-            d3.selectAll('chart circle').style('display','none');
+            $d3.selectAll('chart circle').style('display','none');
           }
         }
 
@@ -375,7 +376,7 @@ angular.module('chartsApp')
         }
 
         // minified function for word wrapping labels on x axis'
-        function wrap(t,e,a){t.each(function(){for(var t,p=d3.select(this),n=p.text().split(/\s+/).reverse(),r=[],o=0,x=1.2,s=p.attr("x"),d=a,i=0,u=p.text(null).append("tspan").attr("x",s).attr("y",d).attr("dy",i+"em");t=n.pop();)r.push(t),u.text(r.join(" ")),u.node().getComputedTextLength()>e&&(r.pop(),u.text(r.join(" ")),r=[t],u=p.append("tspan").attr("x",s).attr("y",d).attr("dy",++o*x+i+"em").text(t))})};
+        function wrap(t,e,a){t.each(function(){for(var t,p=$d3.select(this),n=p.text().split(/\s+/).reverse(),r=[],o=0,x=1.2,s=p.attr("x"),d=a,i=0,u=p.text(null).append("tspan").attr("x",s).attr("y",d).attr("dy",i+"em");t=n.pop();)r.push(t),u.text(r.join(" ")),u.node().getComputedTextLength()>e&&(r.pop(),u.text(r.join(" ")),r=[t],u=p.append("tspan").attr("x",s).attr("y",d).attr("dy",++o*x+i+"em").text(t))})};
 
         //function for moving forward and backward in the chart
         $scope.changeTime = function(e) {
@@ -546,7 +547,7 @@ angular.module('chartsApp')
         function arrHasObjects(arr) {
           var isUndefined = true;
           for (var i = 0; i < arr.length; i++) {
-            if (typeof arr[i] != 'undefined') {
+            if (typeof arr[i] !== 'undefined') {
               isUndefined = false;
             }
           }

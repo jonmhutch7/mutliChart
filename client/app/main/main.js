@@ -3,7 +3,7 @@
 angular.module('chartsApp')
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/charts', {
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl'
       });

@@ -9,7 +9,7 @@ angular.module('chartsApp', [
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/charts'
       });
 
     $locationProvider.html5Mode(true);
