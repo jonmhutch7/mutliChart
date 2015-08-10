@@ -1,0 +1,218 @@
+ <div class="chart-header" ng-if="chart.isActive">
+ 	<h1>Chart Name</h1>
+    <div class="chart-nav">
+      <div class="item selected" data-scale="week" data-ng-click="selectScale($event)">Week</div>
+      <div class="item" data-scale="day" data-ng-click="selectScale($event)">Day</div>
+      <div class="item" data-scale="hour" data-ng-click="selectScale($event)">Hour</div>
+    </div>
+  </div>
+
+  <div class="chart-container" ng-if="chart.isActive">
+    <div class="scale scale-top">
+      <div class="back" data-direction="back" data-ng-click="changeTime($event)">
+        <img src="assets/images/chevron-small.svg">
+      </div>
+      <div class="forward" data-direction="forward" data-ng-click="changeTime($event)">
+        <img src="assets/images/chevron-small.svg">
+      </div>
+    </div>
+    <div class="main-chart">
+      <svg class="date-axis">
+        <g class="x axis axis-top" transform="translate(0,50)" height="50"></g>
+      </svg>
+      <div class="switches switches-0">
+        <div class="left-switch"  ng-class="{enabled: chart.graphData[0][0].isActive}" ng-click="chart.graphData[0][0].isActive = !chart.graphData[0][0].isActive; chart.graphData[0][0].toggled = !chart.graphData[0][0].toggled">
+          <div class="control-toggle"></div>
+          <span>Label 1</span>
+        </div>
+        <div class="right-switch"  ng-class="{enabled: chart.graphData[0][1].isActive}" ng-click="chart.graphData[0][1].isActive = !chart.graphData[0][1].isActive; chart.graphData[0][1].toggled = !chart.graphData[0][1].toggled">
+          <div class="control-toggle"></div>
+          <span>Label 2</span>
+        </div>
+      </div>
+      <svg class="chart-svg" ng-class="{enabled: chart.graphData[0][0].isActive || chart.graphData[0][1].isActive}">
+        <g class="chart-0">
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,15)"></line>
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,44.659090909090914)"></line>
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,75.34090909090908)"></line>
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,105)"></line>
+          <g class="graph-0" ng-show="chart.graphData[0][0].isActive" >
+            <path class="line"></path>
+            <path class="area"></path>
+            <g class="points"></g>
+          </g>
+          <g class="graph-1" ng-show="chart.graphData[0][1].isActive" >
+            <path class="line"></path>
+            <path class="area"></path>
+            <g class="points"></g>
+          </g>
+          <g class="x axis x-inner"  transform="translate(0,130)"></g>
+          <g class="y axis axisLeft" ng-show="chart.graphData[0][0].isActive"  transform="translate(5,0)"></g>
+          <g class="y axis axisRight" ng-show="chart.graphData[0][1].isActive" ></g>
+        </g>
+      </svg>
+      <div class="no-data" ng-show="!chart.graphData[0][0].isActive && !chart.graphData[0][1].isActive">No Data</div>
+
+      <div class="switches switches-1">
+        <div class="left-switch"  ng-class="{enabled: chart.graphData[1][0].isActive}" ng-click="chart.graphData[1][0].isActive = !chart.graphData[1][0].isActive; chart.graphData[1][0].toggled = !chart.graphData[1][0].toggled">
+          <div class="control-toggle"></div>
+          <span>Label 3</span>
+        </div>
+        <div class="right-switch"  ng-class="{enabled: chart.graphData[1][1].isActive}" ng-click="chart.graphData[1][1].isActive = !chart.graphData[1][1].isActive; chart.graphData[1][1].toggled = !chart.graphData[1][1].toggled">
+          <div class="control-toggle"></div>
+          <span>Label 4</span>
+        </div>
+      </div>
+      <svg class="chart-svg" ng-class="{enabled: chart.graphData[1][0].isActive || chart.graphData[1][1].isActive}">
+        <g class="chart-1">
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,15)"></line>
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,44.659090909090914)"></line>
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,75.34090909090908)"></line>
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,105)"></line>
+          <g class="graph-0" ng-show="chart.graphData[1][0].isActive" >
+            <path class="line"></path>
+            <path class="area"></path>
+            <g class="points"></g>
+          </g>
+          <g class="graph-1" ng-show="chart.graphData[1][1].isActive" >
+            <path class="line"></path>
+            <path class="area"></path>
+            <g class="points"></g>
+          </g>
+          <g class="x axis x-inner" transform="translate(0,130)"></g>
+          <g class="y axis axisRight" ng-show="chart.graphData[1][1].isActive" ></g>
+          <g class="y axis axisLeft" ng-show="chart.graphData[1][0].isActive"  transform="translate(5,0)"></g>
+        </g>
+      </svg>
+      <div class="no-data" ng-show="!chart.graphData[1][0].isActive && !chart.graphData[1][1].isActive">No Data</div>
+
+      <div class="switches switches-2">
+        <div class="left-switch"  ng-class="{enabled: chart.graphData[2][0].isActive}" ng-click="chart.graphData[2][0].isActive = !chart.graphData[2][0].isActive; chart.graphData[2][0].toggled = !chart.graphData[2][0].toggled">
+          <div class="control-toggle"></div>
+          <span>Label 5</span>
+        </div>
+        <div class="right-switch"   ng-class="{enabled: chart.graphData[2][1].isActive}" ng-click="chart.graphData[2][1].isActive = !chart.graphData[2][1].isActive; chart.graphData[2][1].toggled = !chart.graphData[2][1].toggled">
+          <div class="control-toggle"></div>
+          <span>Label 6</span>
+        </div>
+      </div>
+      <svg class="chart-svg" ng-class="{enabled: chart.graphData[2][0].isActive || chart.graphData[2][1].isActive}">
+        <g class="chart-2">
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,15)"></line>
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,44.659090909090914)"></line>
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,75.34090909090908)"></line>
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,105)"></line>
+          <g class="graph-0" ng-show="chart.graphData[2][0].isActive" >
+            <path class="line"></path>
+            <path class="area"></path>
+            <g class="points"></g>
+          </g>
+          <g class="graph-1" ng-show="chart.graphData[2][1].isActive">
+            <path class="line"></path>
+            <path class="area"></path>
+            <g class="points"></g>
+          </g>
+          <g class="x axis x-inner" transform="translate(0,130)"></g>
+          <g class="y axis axisRight" ng-show="chart.graphData[2][0].isActive" ></g>
+          <g class="y axis axisLeft" ng-show="chart.graphData[2][1].isActive"  transform="translate(5,0)"></g>
+        </g>
+      </svg>
+      <div class="no-data" ng-show="!chart.graphData[2][0].isActive && !chart.graphData[2][1].isActive">No Data</div>
+
+      <div class="switches switches-3">
+        <div class="left-switch"  ng-class="{enabled: chart.graphData[3][0].isActive}" ng-click="chart.graphData[3][0].isActive = !chart.graphData[3][0].isActive; chart.graphData[3][0].toggled = !chart.graphData[3][0].toggled">
+          <div class="control-toggle"></div>
+          <span>Label 7</span>
+        </div>
+        <div class="right-switch"  ng-class="{enabled: chart.graphData[3][1].isActive}" ng-click="chart.graphData[3][1].isActive = !chart.graphData[3][1].isActive; chart.graphData[3][1].toggled = !chart.graphData[3][1].toggled">
+          <div class="control-toggle"></div>
+          <span>Label 8</span>
+        </div>
+      </div>
+      <svg class="chart-svg" ng-class="{enabled: chart.graphData[3][0].isActive || chart.graphData[3][1].isActive || chart.graphData[3][2].isActive}">
+        <g class="chart-3">
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,15)"></line>
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,44.659090909090914)"></line>
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,75.34090909090908)"></line>
+          <line class="y-axis-guide" x2="820" y2="0" x1="50" transform="translate(0,105)"></line>
+          <g class="graph-0" ng-show="chart.graphData[3][0].isActive" >
+            <path class="line"></path>
+            <path class="area"></path>
+            <g class="points"></g>
+          </g>
+          <g class="graph-1" ng-show="chart.graphData[3][1].isActive" >
+            <path class="line"></path>
+            <path class="area"></path>
+            <g class="points"></g>
+          </g>
+          <g class="y axis axisLeft" ng-show="chart.graphData[3][0].isActive"  transform="translate(5,0)"></g>
+          <g class="y axis axisRight" ng-show="chart.graphData[3][1].isActive || chart.graphData[3][2].isActive"></g>
+          <g class="x axis x-inner" transform="translate(0,130)"></g>
+        </g>
+      </svg>
+      <div class="no-data" ng-show="!chart.graphData[3][0].isActive && !chart.graphData[3][1].isActive && !chart.graphData[3][2].isActive">No Data</div>
+
+      <svg class="date-axis">
+        <g class="x axis axis-bottom" transform="translate(0,7)"></g>
+      </svg>
+
+      <div class="tooltips" ng-hide="!chart.hoverActive">
+        <div class="date-tip">
+          <span class="date">{{chart.tooltip.date | date:'shortDate'}} | {{chart.tooltip.date | date:'mediumTime'}}</span>
+          <div class="triangle"></div>
+        </div>
+        
+        <div class="data-tips" ng-show="chart.tooltipsActive">
+
+          <div class="tip tip-chart-0" ng-show="chart.graphData[0][0].isActive || chart.graphData[0][1].isActive">
+            <div class="label-container-0" ng-show="chart.graphData[0][0].isActive" >
+                          <span class="label">Label 1</span>
+              <span class="data">{{chart.tooltip.labelOne | number:2}}</span>
+            </div>
+            <div class="label-container-1" ng-show="chart.graphData[0][1].isActive" >
+                        <span class="label">Label 2</span>
+                <span class="data">{{chart.tooltip.labelTwo | number:2}}</span>
+            </div>
+          </div>
+          <div class="tip tip-chart-1" ng-show="chart.graphData[1][0].isActive || chart.graphData[1][1].isActive">
+            <div class="label-container-0" ng-show="chart.graphData[1][0].isActive" >
+                         <span class="label">Label 3</span>
+              <span class="data">{{chart.tooltip.labelThree | number:2}}</span>
+            </div>
+            <div class="label-container-1" ng-show="chart.graphData[1][1].isActive" >
+                        <span class="label">Label 4</span>
+              <span class="data">{{chart.tooltip.labelFour | number:2}}</span>
+            </div>
+          </div>
+               <div class="tip tip-chart-2" ng-show="chart.graphData[2][0].isActive || chart.graphData[2][1].isActive">
+            <div class="label-container-0"  ng-show="chart.graphData[2][0].isActive">
+                    <span class="label">Label 5</span>
+                <span class="data">{{chart.tooltip.labelFive | number:2}}</span>
+            </div>
+            <div class="label-container-1"  ng-show="chart.graphData[2][1].isActive">
+                    <span class="label">Label 6</span>
+              <span class="data">{{chart.tooltip.labelSix | number:2}}</span>
+            </div>
+          </div>
+          <div class="tip tip-chart-3" ng-show="chart.graphData[3][0].isActive || chart.graphData[3][1].isActive || chart.graphData[3][2].isActive">
+            <div class="label-container-0"  ng-show="chart.graphData[3][0].isActive">
+                    <span class="label">Label 7</span>
+              <span class="data">{{chart.tooltip.labelSeven | number:2}}</span>
+            </div>
+            <div class="label-container-1"  ng-show="chart.graphData[3][1].isActive">
+                    <span class="label"> Label 8</span>
+              <span class="data">{{chart.tooltip.labelEight | number:2}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scale scale-bottom">
+      <div class="back" data-direction="back" data-ng-click="changeTime($event)">
+        <img src="assets/images/chevron-small.svg">
+      </div>
+      <div class="forward" data-direction="forward" data-ng-click="changeTime($event)">
+        <img src="assets/images/chevron-small.svg">
+      </div>
+    </div>
+  </div>
